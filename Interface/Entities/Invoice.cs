@@ -22,13 +22,13 @@ namespace Interface.Entities
 
         public override string ToString()
         {
-
+            
             return "Basic Payment: "
-                + BasicPayment.ToString("F2", CultureInfo.InstalledUICulture)
+                + BasicPayment.ToString("C", new CultureInfo("pt-BR").NumberFormat)
                 + "\nTax: "
-                + Tax.ToString("F2", CultureInfo.InstalledUICulture)
+                + Tax.ToString("C", new CultureInfo("pt-BR").NumberFormat)
                 + "\nTotal payment: "
-                + TotalPayment.ToString("F2", CultureInfo.InstalledUICulture)
+                + TotalPayment.ToString("C", new CultureInfo("pt-BR").NumberFormat);
 
         }
        
