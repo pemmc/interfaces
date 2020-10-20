@@ -9,12 +9,22 @@ namespace Interface.Services
         public double PricePerHour { get; private set; }    
         public double PricePerDay { get; private set; }
 
-        private BrazilTaxService _brazilTaxService = new BrazilTaxService();
+        //Declaração de dependência, já instanciando, fica muito dependente do BrazilTaxService
+        //Fica só para o Brasil.. se tiver que trocar este serviço... vou ter que criar o outro serviço e ainda mexer
+        //nesta classe RentalService
+        //vamos mudar isso por meio de INTERFACE
+        //era assim.. mass criamos o SERVICO TAXSERVICE... com o brasiltaxservice com classe concreta
+        //private BrazilTaxService _brazilTaxService = new BrazilTaxService();
 
-        public RentalService(double pricePerHour, double pricePerDay)
+        //Declaração da INTERFACE
+        private ITaxService _taxService;
+
+        public RentalService(double pricePerHour, double pricePerDay, ITaxService taxService)
         {
             PricePerHour = pricePerHour;
             PricePerDay = pricePerDay;
+
+            _taxService = taxService;
 
         }
 
@@ -39,7 +49,7 @@ namespace Interface.Services
 
             }
 
-            double tax = _brazilTaxService.Tax(basicPayment);
+            double tax = _taxService.Tax(basicPayment);
 
             carRental.Invoice = new Invoice(basicPayment, tax);
 
